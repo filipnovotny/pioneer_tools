@@ -1,0 +1,19 @@
+<package>
+  <description brief="pioneer_teleop">
+
+     pioneer_teleop
+
+  </description>
+  <author>fnovotny</author>
+  <license>BSD</license>
+  <review status="unreviewed" notes=""/>
+  <url>http://ros.org/wiki/pioneer_teleop</url>
+  <depend package="roscpp"/>
+  <depend package="rospy"/>
+  <depend package="visp"/>
+  <depend package="sensor_msgs"/>
+  <depend package="visp_bridge"/>
+
+</package>
+
+
