@@ -1,0 +1,4 @@
+<launch>
+	<machine name="master" address="santa" user="fnovotny" default="false" />
+	<machine name="pioneer" env-loader="~/env.sh" address="lagadic-wifi" user="fnovotny" default="false" />
+</launch>
