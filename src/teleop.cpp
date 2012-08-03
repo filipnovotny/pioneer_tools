@@ -94,7 +94,7 @@ void Teleop::joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
 
   vel.linear.x = v_linear;
   vel.linear.y = 0.;
-  vel.angular.y = v_angular;
+  vel.angular.z = v_angular;
   ROS_INFO("New speed: linear= %f, angular=%f", v_linear,v_angular);
 
 
