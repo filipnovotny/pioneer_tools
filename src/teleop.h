@@ -47,14 +47,12 @@
  \brief 
  */
 #include "ros/ros.h"
-#include <visp/vpConfig.h>
 #include <sensor_msgs/Joy.h>
 #include <string>
-#include <visp/vpRobotPioneer.h>
 
-#ifndef __PIONEER_TELEOP_H__
-#define __PIONEER_TELEOP_H__
-namespace pioneer
+#ifndef __joystick_TELEOP_H__
+#define __joystick_TELEOP_H__
+namespace joystick
 {
 class Teleop
 {
@@ -62,14 +60,10 @@ private:
   ros::NodeHandle n_;
   ros::AsyncSpinner spinner;
 
-
   int linear_, angular_;
   double l_scale_, a_scale_;
   ros::Subscriber joy_subscriber_;
-#ifdef VISP_HAVE_PIONEER
-  vpRobotPioneer robot_;
-#endif
-
+  ros::Publisher velocity_publisher_;
   unsigned int queue_size_;
 
   void joyCallback(const sensor_msgs::Joy::ConstPtr& joy);

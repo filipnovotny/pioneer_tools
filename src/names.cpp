@@ -50,18 +50,20 @@
 #include "names.h"
 #include "ros/ros.h"
 
-namespace pioneer
+namespace joystick
 {
   extern std::string joy_topic("joy");
+  extern std::string velocity_topic("velocity");
   extern std::string axis_linear_param("axis_linear");
   extern std::string axis_angular_param("axis_angular");
   extern std::string scale_linear_param("scale_linear");
   extern std::string scale_angular_param("scale_angular");
 
   void remap(){
-    if (ros::names::remap("joy") != "joy") {
+    if (ros::names::remap("joy") != "joy")
       joy_topic = ros::names::remap("joy");
-    }
+    if (ros::names::remap("velocity") != "velocity")
+      velocity_topic = ros::names::remap("velocity");
   }
 
 }

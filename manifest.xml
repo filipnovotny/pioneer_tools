@@ -1,18 +1,17 @@
 <package>
-  <description brief="pioneer_teleop">
+  <description brief="joystick_teleop">
 
-     pioneer_teleop
+     joystick_teleop
 
   </description>
   <author>fnovotny</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/pioneer_teleop</url>
+  <url>http://ros.org/wiki/joystick_teleop</url>
   <depend package="roscpp"/>
   <depend package="rospy"/>
-  <depend package="visp"/>
   <depend package="sensor_msgs"/>
-  <depend package="visp_bridge"/>
+  <depend package="geometry_msgs"/>
 
 </package>
 

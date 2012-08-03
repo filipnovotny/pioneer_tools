@@ -50,12 +50,11 @@
 
 #include "teleop.h"
 #include "names.h"
-#include <visp/vpConfig.h>
-#include <visp/vpColVector.h>
+#include <geometry_msgs/Twist.h>
 #include <sstream>
 
 
-namespace pioneer
+namespace joystick
 {
 Teleop::Teleop(int argc, char**argv) :
             n_("~"),
@@ -65,63 +64,41 @@ Teleop::Teleop(int argc, char**argv) :
             queue_size_(1000)
 
 {
-  pioneer::remap();
+  joystick::remap();
 
   n_.param(axis_linear_param, linear_, linear_);
   n_.param(axis_angular_param, angular_, angular_);
   n_.param(scale_linear_param, l_scale_, l_scale_);
   n_.param(scale_angular_param, a_scale_, a_scale_);
-  spinner.start();
+
   ros::Duration(1).sleep();
-  ROS_INFO("Joy topic set to: %s", pioneer::joy_topic.c_str());
+  ROS_INFO("Joy topic set to: %s", joystick::joy_topic.c_str());
+  ROS_INFO("Velocity topic set to: %s", joystick::velocity_topic.c_str());
   ROS_INFO("axis angular set to: %d", angular_);
   ROS_INFO("axis linear set to: %d", linear_);
   ROS_INFO("scale linear set to: %f", l_scale_);
   ROS_INFO("scale angular set to: %f", a_scale_);
 
-  joy_subscriber_ = n_.subscribe<sensor_msgs::Joy>(pioneer::joy_topic, queue_size_, &Teleop::joyCallback, this);
 
-#ifdef VISP_HAVE_PIONEER
-  ArArgumentParser parser(&argc, argv);
-  parser.loadDefaultArguments();
+  joy_subscriber_ = n_.subscribe<sensor_msgs::Joy>(joystick::joy_topic, queue_size_, &Teleop::joyCallback, this);
+  velocity_publisher_ = n_.advertise<geometry_msgs::Twist>(velocity_topic, queue_size_);
 
-  // ArRobotConnector connects to the robot, get some initial data from it such as type and name,
-  // and then loads parameter files for this robot.
-  ArRobotConnector robotConnector(&parser, &robot_);
-  if(!robotConnector.connectRobot())
-  {
-    ROS_ERROR("Could not connect to the robot.");
-    if(parser.checkHelpAndWarnUnparsed())
-    {
-      ros::shutdown();
-    }
-  }
-  if (!Aria::parseArgs())
-  {
-    ROS_ERROR("Could not parse command line arguments.");
-    ros::shutdown();
-  }
-
-  ROS_INFO("Robot connected");
-  robot_.useSonar(false); // disable the sonar device usage
-#endif
-
+  ros::spin();
 
 }
 
 void Teleop::joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
+  geometry_msgs::Twist vel;
   double v_angular = a_scale_*joy->axes[angular_];
   double v_linear = l_scale_*joy->axes[linear_];
 
-
-  vpColVector v(2);
-  v[0] = v_linear;
-  v[1] = v_angular;
+  vel.linear.x = v_linear;
+  vel.linear.y = 0.;
+  vel.angular.y = v_angular;
   ROS_INFO("New speed: linear= %f, angular=%f", v_linear,v_angular);
 
-#ifdef VISP_HAVE_PIONEER
-  robot_.setVelocity(vpRobot::REFERENCE_FRAME, v);
-#endif
+
+  velocity_publisher_.publish(vel);
 }
 
 
