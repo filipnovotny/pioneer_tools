@@ -8,7 +8,7 @@
   </node>
 
  
-  <node pkg="joystick_teleop" type="joystick_teleop" name="teleop" args="joy:=/joy velocity:=/cmd_vel">
+  <node pkg="joystick_teleop" type="joystick_teleop" name="teleop" args="joy:=/joy velocity:=/RosAria/cmd_vel">
   	<!-- Axes -->
     <param name="axis_linear" value="3" type="int"/>
     <param name="axis_angular" value="2" type="int"/>
