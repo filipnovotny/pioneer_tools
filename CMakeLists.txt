@@ -21,12 +21,16 @@ set(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/lib)
 #uncomment if you have defined services
 #rosbuild_gensrv()
 
-rosbuild_add_library(${PROJECT_NAME}_common src/names.cpp)
+rosbuild_add_library(joystick_teleop_common src/names.cpp)
 
 #common commands for building c++ executables and libraries
-#rosbuild_add_library(${PROJECT_NAME} src/example.cpp)
-#target_link_libraries(${PROJECT_NAME} another_library)
+#rosbuild_add_library(joystick_teleop src/example.cpp)
+#target_link_libraries(joystick_teleop another_library)
 #rosbuild_add_boost_directories()
-#rosbuild_link_boost(${PROJECT_NAME} thread)
-rosbuild_add_executable(${PROJECT_NAME} src/teleop_main.cpp src/teleop.cpp)
-target_link_libraries(${PROJECT_NAME} ${PROJECT_NAME}_common)
+#rosbuild_link_boost(joystick_teleop thread)
+
+rosbuild_add_executable(joystick_teleop src/teleop_main.cpp src/teleop.cpp)
+target_link_libraries(joystick_teleop joystick_teleop_common)
+
+rosbuild_add_executable(odometry_frame_publisher src/odometry_frame_publisher_main.cpp src/odometry_frame_publisher.cpp)
+target_link_libraries(odometry_frame_publisher joystick_teleop_common)

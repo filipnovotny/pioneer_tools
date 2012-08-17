@@ -52,18 +52,26 @@
 
 namespace joystick
 {
-  extern std::string joy_topic("joy");
-  extern std::string velocity_topic("velocity");
-  extern std::string axis_linear_param("axis_linear");
-  extern std::string axis_angular_param("axis_angular");
-  extern std::string scale_linear_param("scale_linear");
-  extern std::string scale_angular_param("scale_angular");
+  std::string joy_topic("joy");
+  std::string odometry_topic("odometry");
+  std::string velocity_topic("velocity");
+  std::string axis_linear_param("axis_linear");
+  std::string axis_angular_param("axis_angular");
+  std::string scale_linear_param("scale_linear");
+  std::string scale_angular_param("scale_angular");
+
+  std::string child_frame_param("child_frame");
+  std::string offset_x_param("offset_x");
+  std::string offset_y_param("offset_y");
+  std::string offset_z_param("offset_z");
 
   void remap(){
     if (ros::names::remap("joy") != "joy")
       joy_topic = ros::names::remap("joy");
     if (ros::names::remap("velocity") != "velocity")
       velocity_topic = ros::names::remap("velocity");
+    if (ros::names::remap("odometry") != "odometry")
+      odometry_topic = ros::names::remap("odometry");
   }
 
 }

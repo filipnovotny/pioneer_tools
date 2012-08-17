@@ -1,7 +1,11 @@
 <launch>
   <include file="$(find joystick_teleop)/launch/$(optenv PIONEER_CONFIG pioneer_config).machine" />
 
+  <!-- use slam -->
+  <include file="$(find joystick_teleop)/launch/slam.lauch" /> 
+
  <!-- joy node -->
+ 
   <node machine="master" respawn="true" pkg="joy"
         type="joy" name="gamepad" >
     <param name="dev" type="string" value="/dev/input/js0" />
@@ -16,8 +20,12 @@
     <param name="scale_linear" value="1" type="double"/>
     <param name="scale_angular" value="1" type="double"/>
   </node>
+
   <node machine="pioneer" name="RosAria" pkg="ROSARIA" type="RosAria">
     <param name="port" value="/dev/ttyUSB0" />
   </node>
+
+  <!-- use camera -->
+  <!-- <include file="$(find joystick_teleop)/launch/camera_1394.launch" /> -->
 
 </launch>
