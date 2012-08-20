@@ -1,30 +1,9 @@
 <launch>
-  <!-- 
-  NOTE: You'll need to bring up something that publishes sensor data (see
-  rosstage), something that publishes a map (see map_server), and something to
-  visualize a costmap (see nav_view), to see things work.
-
-  Also, on a real robot, you'd want to set the "use_sim_time" parameter to false, or just not set it.
-  -->
-
   <!-- Run the costmap node -->
   
   <node machine="master" name="costmap_node" pkg="costmap_2d" type="costmap_2d_node" >
-    <rosparam file="$(find joystick_teleop)/launch/map_parameters.yaml" command="load" ns="costmap" />
-  </node>
+    <rosparam file="$(find joystick_teleop)/launch/config/manual_costmap.yaml" command="load" ns="costmap" />
+  </node>  
   
-  <node machine="master" pkg="tf" type="static_transform_publisher" name="odometry_frame_broadcaster" args="10 10 0   3.93 0.0 0.0 /world /odometry_frame 100" />
-
-  <node machine="master" pkg="joystick_teleop" type="odometry_frame_publisher" name="odometry_convertor" args="odometry:=/RosAria/pose" >
-    <param name="child_frame" value="/robot_pos" type="string" />
-    <param name="offset_x" value="5." type="double" />
-    <param name="offset_y" value="0." type="double" />
-    <param name="offset_z" value="0." type="double" />
-
-  </node>
-
-  <node machine="master" pkg="tf" type="static_transform_publisher" name="robot_frame_broadcaster" args="0 0 0 0 0 0 /robot_pos /sonar_frame 100" />
   
-  <node machine="pioneer" pkg="tf" type="static_transform_publisher" name="camera_frame_broadcaster" args="0 0 0 0 0 0 /robot_pos /camera 10" />
-
 </launch>

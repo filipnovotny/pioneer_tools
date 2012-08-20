@@ -1,10 +1,16 @@
 <launch>
   <include file="$(find joystick_teleop)/launch/$(optenv PIONEER_CONFIG pioneer_config).machine" />
 
-  <!-- use slam -->
-  <include file="$(find joystick_teleop)/launch/goal.launch" /> 
+  <!-- set up /tf frames -->
+  <include file="$(find joystick_teleop)/launch/robot_frames.launch" /> 
 
+  <!-- use slam with goal -->
+  <include file="$(find joystick_teleop)/launch/goal.launch" /> 
   
+  <!-- start interface -->
+  <node machine="master" name="visualizer" pkg="rviz" type="rviz" args="--display-config $(find joystick_teleop)/launch/rviz/map_generation_with_goal.vcg" />  
+
+  <!-- run robot -->
   <node machine="pioneer" name="RosAria" pkg="ROSARIA" type="RosAria" >
     <param name="port" value="/dev/ttyUSB0" />        
   </node>

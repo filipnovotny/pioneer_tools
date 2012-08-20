@@ -1,5 +1,8 @@
 <launch>
   <include file="$(find joystick_teleop)/launch/$(optenv PIONEER_CONFIG pioneer_config).machine" />
+  
+  <!-- set up /tf frames -->
+  <include file="$(find joystick_teleop)/launch/robot_frames.launch" /> 
 
   <!-- use slam -->
   <include file="$(find joystick_teleop)/launch/slam.launch" /> 
@@ -10,6 +13,11 @@
   <!-- use camera -->
   <include file="$(find joystick_teleop)/launch/camera_1394.launch" />
 
+  <!-- start interface -->
   <node machine="master" name="visualizer" pkg="rviz" type="rviz" args="--display-config $(find joystick_teleop)/launch/rviz/manual_map_generation_with_camera.vcg" />  
 
+  <!-- run robot -->
+  <node machine="pioneer" name="RosAria" pkg="ROSARIA" type="RosAria">
+    <param name="port" value="/dev/ttyUSB0" />
+  </node>
 </launch>
