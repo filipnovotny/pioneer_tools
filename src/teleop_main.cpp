@@ -53,7 +53,7 @@
 
 int main(int argc,char** argv){
   ros::init(argc, argv, "teleop");
-  joystick::Teleop teleop(argc, argv);
+  pioneer::Teleop teleop(argc, argv);
 
   return 0;
 }

@@ -2,30 +2,14 @@
   <include file="$(find joystick_teleop)/launch/$(optenv PIONEER_CONFIG pioneer_config).machine" />
 
   <!-- use slam -->
-  <include file="$(find joystick_teleop)/launch/slam.lauch" /> 
+  <include file="$(find joystick_teleop)/launch/slam.launch" /> 
 
- <!-- joy node -->
- 
-  <node machine="master" respawn="true" pkg="joy"
-        type="joy" name="gamepad" >
-    <param name="dev" type="string" value="/dev/input/js0" />
-    <param name="deadzone" value="0.12" />
-  </node>
-
- 
-  <node machine="master" pkg="joystick_teleop" type="joystick_teleop" name="teleop" args="joy:=/joy velocity:=/RosAria/cmd_vel">
-  	<!-- Axes -->
-    <param name="axis_linear" value="3" type="int"/>
-    <param name="axis_angular" value="2" type="int"/>
-    <param name="scale_linear" value="1" type="double"/>
-    <param name="scale_angular" value="1" type="double"/>
-  </node>
-
-  <node machine="pioneer" name="RosAria" pkg="ROSARIA" type="RosAria">
-    <param name="port" value="/dev/ttyUSB0" />
-  </node>
+  <!-- use joystick teleoperation -->
+  <include file="$(find joystick_teleop)/launch/joystick_teleop.launch" />
 
   <!-- use camera -->
-  <!-- <include file="$(find joystick_teleop)/launch/camera_1394.launch" /> -->
+  <include file="$(find joystick_teleop)/launch/camera_1394.launch" />
+
+  <node machine="master" name="visualizer" pkg="rviz" type="rviz" args="--display-config $(find joystick_teleop)/launch/rviz/manual_map_generation_with_camera.vcg" />  
 
 </launch>

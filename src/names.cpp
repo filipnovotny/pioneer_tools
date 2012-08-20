@@ -50,7 +50,7 @@
 #include "names.h"
 #include "ros/ros.h"
 
-namespace joystick
+namespace pioneer
 {
   std::string joy_topic("joy");
   std::string odometry_topic("odometry");

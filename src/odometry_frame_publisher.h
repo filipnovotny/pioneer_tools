@@ -1,10 +1,10 @@
 /****************************************************************************
  *
- * $Id: file.h 3496 2011-11-22 15:14:32Z fnovotny $
+ * $Id: file.cpp 3496 2011-11-22 15:14:32Z fnovotny $
  *
  * This file is part of the ViSP software.
  * Copyright (C) 2005 - 2012 by INRIA. All rights reserved.
- *
+ * 
  * This software is free software; you can redistribute it and/or
  * modify it under the terms of the GNU General Public License
  * ("GPL") version 2 as published by the Free Software Foundation.
@@ -12,11 +12,11 @@
  * distribution for additional information about the GNU GPL.
  *
  * For using ViSP with software that can not be combined with the GNU
- * GPL, please contact INRIA about acquiring a ViSP Professional
+ * GPL, please contact INRIA about acquiring a ViSP Professional 
  * Edition License.
  *
  * See http://www.irisa.fr/lagadic/visp/visp.html for more information.
- *
+ * 
  * This software was developed at:
  * INRIA Rennes - Bretagne Atlantique
  * Campus Universitaire de Beaulieu
@@ -26,7 +26,7 @@
  *
  * If you have questions regarding the use of this file, please contact
  * INRIA at visp@inria.fr
- *
+ * 
  * This file is provided AS IS with NO WARRANTY OF ANY KIND, INCLUDING THE
  * WARRANTY OF DESIGN, MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE.
  *
@@ -34,45 +34,45 @@
  * not clear to you.
  *
  * Description:
- * File containing names of topics or services used all accross the package
+ * 
  *
  * Authors:
  * Filip Novotny
- *
+ * 
  *
  *****************************************************************************/
 
 /*!
-  \file names.h
-  \brief File containing names of topics or services used all accross the package
-*/
+ \file OdometryFramePublisher.h
+ \brief 
+ */
 
-#ifndef __visp_hand2eye_calibration_NAMES_H__
-# define __visp_hand2eye_calibration_NAMES_H__
-# include <string>
+#ifndef ODOMETRYFRAMEPUBLISHER_H_
+#define ODOMETRYFRAMEPUBLISHER_H_
+#include "nav_msgs/Odometry.h"
+#include <tf/transform_broadcaster.h>
 
-// define topic and service names for the visp_hand2eye_calibration package.
-namespace pioneer
-{
-  extern std::string joy_topic;
-  extern std::string velocity_topic;
+namespace pioneer{
+  class OdometryFramePublisher
+  {
+  private:
+    ros::NodeHandle n_;
 
-  extern std::string odometry_topic;
+    ros::Subscriber odometry_subscriber_;
+    tf::TransformBroadcaster br_;
 
-  extern std::string axis_linear_param;
-  extern std::string axis_angular_param;
-  extern std::string scale_linear_param;
-  extern std::string scale_angular_param;
+    unsigned int queue_size_;
 
-  extern std::string child_frame_param;
-  extern std::string offset_x_param;
-  extern std::string offset_y_param;
-  extern std::string offset_z_param;
+    std::string child_frame_;
+    double offset_x_;
+    double offset_y_;
+    double offset_z_;
 
+    void odometryCallback(const nav_msgs::Odometry::ConstPtr& odometry);
 
-
-  void remap();
+  public:
+    OdometryFramePublisher();
+    virtual ~OdometryFramePublisher();
+  };
 }
-
-#endif
-
+#endif /* ODOMETRYFRAMEPUBLISHER_H_ */

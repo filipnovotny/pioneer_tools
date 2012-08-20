@@ -52,7 +52,7 @@
 
 #ifndef __joystick_TELEOP_H__
 #define __joystick_TELEOP_H__
-namespace joystick
+namespace pioneer
 {
 class Teleop
 {

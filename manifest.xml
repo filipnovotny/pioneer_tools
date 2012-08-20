@@ -1,19 +1,17 @@
 <package>
-  <description brief="joystick_teleop">
-
-     joystick_teleop
-
+  <description brief="pioneer">     
+    Pioneer robot joystick control, path planning and map generation.
   </description>
-  <author>fnovotny</author>
+  <author>Filip Novotny</author>
   <license>BSD</license>
   <review status="unreviewed" notes=""/>
-  <url>http://ros.org/wiki/joystick_teleop</url>
+  <url>http://ros.org/wiki/pioneer_tools</url>
+
   <depend package="roscpp"/>
   <depend package="rospy"/>
   <depend package="sensor_msgs"/>
   <depend package="nav_msgs"/>
   <depend package="tf"/>
-
   <depend package="geometry_msgs"/>
 
 </package>

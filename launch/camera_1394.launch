@@ -1,0 +1,8 @@
+<launch>
+
+  <node machine="pioneer" pkg="camera1394" type="camera1394_node" name="my_camera1394_node" args="_video_mode:=640x480_rgb8" >  	
+    <param name="camera_info_url" value="package://joystick_teleop/launch/config/calibration.ini" type="string" />
+  </node>
+  <node machine="master" pkg="image_transport" type="republish" name="compressed_uncompressed_republisher" args="theora in:=/camera/image_raw out:=/image_uncompressed"/> 
+  
+</launch>

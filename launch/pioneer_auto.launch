@@ -1,0 +1,12 @@
+<launch>
+  <include file="$(find joystick_teleop)/launch/$(optenv PIONEER_CONFIG pioneer_config).machine" />
+
+  <!-- use slam -->
+  <include file="$(find joystick_teleop)/launch/goal.launch" /> 
+
+  
+  <node machine="pioneer" name="RosAria" pkg="ROSARIA" type="RosAria" >
+    <param name="port" value="/dev/ttyUSB0" />        
+  </node>
+
+</launch>
