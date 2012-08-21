@@ -1,7 +1,7 @@
 Background\ ColorB=0
 Background\ ColorG=0
 Background\ ColorR=0
-Camera\ Config=1.1598 1.23227 17.9096 4.23086 2.82438 -4.73362
+Camera\ Config=1.1048 1.17727 17.9096 4.23086 2.82438 -4.73362
 Camera\ Type=rviz::OrbitViewController
 Camera.Enabled=1
 Camera.Image\ Rendering=background & overlay
@@ -18,7 +18,7 @@ Goal.ColorR=1
 Goal.Enabled=1
 Goal.Head\ Length=0.3
 Goal.Head\ Radius=0.4
-Goal.Shaft\ Length=1
+Goal.Shaft\ Length=0.5
 Goal.Shaft\ Radius=0.1
 Goal.Shape=0
 Goal.Topic=/RosAria/move_base/current_goal

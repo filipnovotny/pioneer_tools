@@ -58,6 +58,9 @@ namespace pioneer_tools
   extern std::string velocity_topic;
 
   extern std::string odometry_topic;
+  extern std::string cancel_topic;
+  extern std::string goal_topic;
+  extern std::string goal_cancel_topic;
 
   extern std::string axis_linear_param;
   extern std::string axis_angular_param;
@@ -68,6 +71,7 @@ namespace pioneer_tools
   extern std::string offset_x_param;
   extern std::string offset_y_param;
   extern std::string offset_z_param;
+  extern std::string cancel_param;
 
 
 

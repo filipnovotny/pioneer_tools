@@ -55,15 +55,20 @@ namespace pioneer_tools
   std::string joy_topic("joy");
   std::string odometry_topic("odometry");
   std::string velocity_topic("velocity");
+  std::string goal_topic("goal");
+  std::string goal_cancel_topic("cancel");
+
   std::string axis_linear_param("axis_linear");
   std::string axis_angular_param("axis_angular");
   std::string scale_linear_param("scale_linear");
   std::string scale_angular_param("scale_angular");
+  std::string cancel_param("cancel");
 
   std::string child_frame_param("child_frame");
   std::string offset_x_param("offset_x");
   std::string offset_y_param("offset_y");
   std::string offset_z_param("offset_z");
+
 
   void remap(){
     if (ros::names::remap("joy") != "joy")
@@ -72,6 +77,10 @@ namespace pioneer_tools
       velocity_topic = ros::names::remap("velocity");
     if (ros::names::remap("odometry") != "odometry")
       odometry_topic = ros::names::remap("odometry");
+    if (ros::names::remap("cancel") != "cancel")
+      goal_cancel_topic = ros::names::remap("cancel");
+    if (ros::names::remap("goal") != "goal")
+      goal_topic = ros::names::remap("goal");
   }
 
 }

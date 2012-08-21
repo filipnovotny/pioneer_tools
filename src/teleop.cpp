@@ -61,8 +61,9 @@ Teleop::Teleop(int argc, char**argv) :
             spinner(0),
             linear_(1),
             angular_(2),
+            cancel_(1),
+            goal_set_(false),
             queue_size_(1000)
-
 {
   pioneer_tools::remap();
 
@@ -70,21 +71,33 @@ Teleop::Teleop(int argc, char**argv) :
   n_.param(axis_angular_param, angular_, angular_);
   n_.param(scale_linear_param, l_scale_, l_scale_);
   n_.param(scale_angular_param, a_scale_, a_scale_);
+  n_.param(cancel_param, cancel_, cancel_);
 
   ros::Duration(1).sleep();
   ROS_INFO("Joy topic set to: %s", pioneer_tools::joy_topic.c_str());
   ROS_INFO("Velocity topic set to: %s", pioneer_tools::velocity_topic.c_str());
+  ROS_INFO("Goal topic set to: %s", pioneer_tools::goal_topic.c_str());
+  ROS_INFO("Goal cancel topic set to: %s", pioneer_tools::goal_cancel_topic.c_str());
   ROS_INFO("axis angular set to: %d", angular_);
   ROS_INFO("axis linear set to: %d", linear_);
-  ROS_INFO("scale linear set to: %f", l_scale_);
+  ROS_INFO("cancel button set to: %d", cancel_);
+
   ROS_INFO("scale angular set to: %f", a_scale_);
+  ROS_INFO("scale linear set to: %f", l_scale_);
 
 
   joy_subscriber_ = n_.subscribe<sensor_msgs::Joy>(pioneer_tools::joy_topic, queue_size_, &Teleop::joyCallback, this);
+  goal_subscriber_ = n_.subscribe<move_base_msgs::MoveBaseActionGoal>(pioneer_tools::goal_topic, queue_size_, &Teleop::goalCallback, this);
   velocity_publisher_ = n_.advertise<geometry_msgs::Twist>(velocity_topic, queue_size_);
+  goal_cancel_publisher_ = n_.advertise<move_base_msgs::MoveBaseActionGoal>(goal_cancel_topic, queue_size_);
 
   ros::spin();
 
+}
+
+void Teleop::goalCallback(const move_base_msgs::MoveBaseActionGoal::ConstPtr& goal){
+  goal_ = goal->goal_id;
+  goal_set_ = true;
 }
 
 void Teleop::joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
@@ -92,13 +105,20 @@ void Teleop::joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
   double v_angular = a_scale_*joy->axes[angular_];
   double v_linear = l_scale_*joy->axes[linear_];
 
+  int cancel_button_ = joy->buttons[cancel_];
+
   vel.linear.x = v_linear;
   vel.linear.y = 0.;
   vel.angular.z = v_angular;
   ROS_INFO("New speed: linear= %f, angular=%f", v_linear,v_angular);
 
+  if(cancel_button_ && goal_set_){
+    goal_cancel_publisher_.publish(goal_);
+    goal_set_ = false;
+  }
 
   velocity_publisher_.publish(vel);
+
 }
 
 

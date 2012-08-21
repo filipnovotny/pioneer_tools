@@ -48,6 +48,8 @@
  */
 #include "ros/ros.h"
 #include <sensor_msgs/Joy.h>
+#include <actionlib_msgs/GoalID.h>
+#include <move_base_msgs/MoveBaseActionGoal.h>
 #include <string>
 
 #ifndef __joystick_TELEOP_H__
@@ -60,13 +62,20 @@ private:
   ros::NodeHandle n_;
   ros::AsyncSpinner spinner;
 
-  int linear_, angular_;
+  int linear_, angular_, cancel_;
   double l_scale_, a_scale_;
+
+  actionlib_msgs::GoalID goal_;
+  bool goal_set_;
+
   ros::Subscriber joy_subscriber_;
+  ros::Subscriber goal_subscriber_;
   ros::Publisher velocity_publisher_;
+  ros::Publisher goal_cancel_publisher_;
   unsigned int queue_size_;
 
   void joyCallback(const sensor_msgs::Joy::ConstPtr& joy);
+  void goalCallback(const move_base_msgs::MoveBaseActionGoal::ConstPtr& goal);
 public:
   Teleop(int argc, char**argv);
   virtual ~Teleop();
