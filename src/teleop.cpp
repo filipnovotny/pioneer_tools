@@ -89,7 +89,7 @@ Teleop::Teleop(int argc, char**argv) :
   joy_subscriber_ = n_.subscribe<sensor_msgs::Joy>(pioneer_tools::joy_topic, queue_size_, &Teleop::joyCallback, this);
   goal_subscriber_ = n_.subscribe<move_base_msgs::MoveBaseActionGoal>(pioneer_tools::goal_topic, queue_size_, &Teleop::goalCallback, this);
   velocity_publisher_ = n_.advertise<geometry_msgs::Twist>(velocity_topic, queue_size_);
-  goal_cancel_publisher_ = n_.advertise<move_base_msgs::MoveBaseActionGoal>(goal_cancel_topic, queue_size_);
+  goal_cancel_publisher_ = n_.advertise<actionlib_msgs::GoalID>(goal_cancel_topic, queue_size_);
 
   ros::spin();
 
@@ -112,10 +112,13 @@ void Teleop::joyCallback(const sensor_msgs::Joy::ConstPtr& joy){
   vel.angular.z = v_angular;
   ROS_INFO("New speed: linear= %f, angular=%f", v_linear,v_angular);
 
-  if(cancel_button_ && goal_set_){
-    goal_cancel_publisher_.publish(goal_);
-    goal_set_ = false;
-  }
+  if(cancel_button_)
+    if (goal_set_){
+      ROS_INFO("Cancelling goal");
+      goal_cancel_publisher_.publish(goal_);
+      goal_set_ = false;
+    }else
+      ROS_INFO("Goal is not set");
 
   velocity_publisher_.publish(vel);
 
