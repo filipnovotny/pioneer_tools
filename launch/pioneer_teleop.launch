@@ -8,7 +8,7 @@
   <include file="$(find pioneer_tools)/launch/slam.launch" /> 
 
   <!-- use joystick teleoperation -->
-  <include file="$(find pioneer_tools)/launch/pioneer_tools.launch" />
+  <include file="$(find pioneer_tools)/launch/joystick_teleop.launch" />
 
   <!-- use camera -->
   <include file="$(find pioneer_tools)/launch/camera_1394.launch" />
