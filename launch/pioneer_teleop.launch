@@ -1,20 +1,20 @@
 <launch>
-  <include file="$(find joystick_teleop)/launch/$(optenv PIONEER_CONFIG pioneer_config).machine" />
+  <include file="$(find pioneer_tools)/launch/$(optenv PIONEER_CONFIG pioneer_config).machine" />
   
   <!-- set up /tf frames -->
-  <include file="$(find joystick_teleop)/launch/robot_frames.launch" /> 
+  <include file="$(find pioneer_tools)/launch/robot_frames.launch" /> 
 
   <!-- use slam -->
-  <include file="$(find joystick_teleop)/launch/slam.launch" /> 
+  <include file="$(find pioneer_tools)/launch/slam.launch" /> 
 
   <!-- use joystick teleoperation -->
-  <include file="$(find joystick_teleop)/launch/joystick_teleop.launch" />
+  <include file="$(find pioneer_tools)/launch/pioneer_tools.launch" />
 
   <!-- use camera -->
-  <include file="$(find joystick_teleop)/launch/camera_1394.launch" />
+  <include file="$(find pioneer_tools)/launch/camera_1394.launch" />
 
   <!-- start interface -->
-  <node machine="master" name="visualizer" pkg="rviz" type="rviz" args="--display-config $(find joystick_teleop)/launch/rviz/manual_map_generation_with_camera.vcg" />  
+  <node machine="master" name="visualizer" pkg="rviz" type="rviz" args="--display-config $(find pioneer_tools)/launch/rviz/manual_map_generation_with_camera.vcg" />  
 
   <!-- run robot -->
   <node machine="pioneer" name="RosAria" pkg="ROSARIA" type="RosAria">

@@ -53,7 +53,7 @@
 
 int main(int argc,char** argv){
   ros::init(argc, argv, "teleop");
-  pioneer::Teleop teleop(argc, argv);
+  pioneer_tools::Teleop teleop(argc, argv);
 
   return 0;
 }

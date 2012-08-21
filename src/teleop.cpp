@@ -54,7 +54,7 @@
 #include <sstream>
 
 
-namespace pioneer
+namespace pioneer_tools
 {
 Teleop::Teleop(int argc, char**argv) :
             n_("~"),
@@ -64,7 +64,7 @@ Teleop::Teleop(int argc, char**argv) :
             queue_size_(1000)
 
 {
-  pioneer::remap();
+  pioneer_tools::remap();
 
   n_.param(axis_linear_param, linear_, linear_);
   n_.param(axis_angular_param, angular_, angular_);
@@ -72,15 +72,15 @@ Teleop::Teleop(int argc, char**argv) :
   n_.param(scale_angular_param, a_scale_, a_scale_);
 
   ros::Duration(1).sleep();
-  ROS_INFO("Joy topic set to: %s", pioneer::joy_topic.c_str());
-  ROS_INFO("Velocity topic set to: %s", pioneer::velocity_topic.c_str());
+  ROS_INFO("Joy topic set to: %s", pioneer_tools::joy_topic.c_str());
+  ROS_INFO("Velocity topic set to: %s", pioneer_tools::velocity_topic.c_str());
   ROS_INFO("axis angular set to: %d", angular_);
   ROS_INFO("axis linear set to: %d", linear_);
   ROS_INFO("scale linear set to: %f", l_scale_);
   ROS_INFO("scale angular set to: %f", a_scale_);
 
 
-  joy_subscriber_ = n_.subscribe<sensor_msgs::Joy>(pioneer::joy_topic, queue_size_, &Teleop::joyCallback, this);
+  joy_subscriber_ = n_.subscribe<sensor_msgs::Joy>(pioneer_tools::joy_topic, queue_size_, &Teleop::joyCallback, this);
   velocity_publisher_ = n_.advertise<geometry_msgs::Twist>(velocity_topic, queue_size_);
 
   ros::spin();

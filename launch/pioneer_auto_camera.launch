@@ -6,9 +6,15 @@
 
   <!-- use slam with goal -->
   <include file="$(find pioneer_tools)/launch/goal.launch" /> 
-  
+     
+  <!-- use joystick teleoperation -->
+  <include file="$(find pioneer_tools)/launch/pioneer_tools.launch" />
+
+  <!-- use camera -->
+  <include file="$(find pioneer_tools)/launch/camera_1394.launch" />
+
   <!-- start interface -->
-  <node machine="master" name="visualizer" pkg="rviz" type="rviz" args="--display-config $(find pioneer_tools)/launch/rviz/map_generation_with_goal.vcg" />  
+  <node machine="master" name="visualizer" pkg="rviz" type="rviz" args="--display-config $(find pioneer_tools)/launch/rviz/map_generation_with_goal_and_camera.vcg" />  
 
   <!-- run robot -->
   <node machine="pioneer" name="RosAria" pkg="ROSARIA" type="RosAria" >

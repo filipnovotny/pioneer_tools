@@ -50,7 +50,7 @@
 #include "odometry_frame_publisher.h"
 #include "names.h"
 
-namespace pioneer{
+namespace pioneer_tools{
   OdometryFramePublisher::OdometryFramePublisher() :
     n_("~"),
     queue_size_(1000),
@@ -59,7 +59,7 @@ namespace pioneer{
     offset_y_(0.),
     offset_z_(0.)
   {
-      pioneer::remap();
+      pioneer_tools::remap();
 
       n_.param(child_frame_param, child_frame_, child_frame_);
       n_.param(offset_x_param, offset_x_, offset_x_);
@@ -68,11 +68,11 @@ namespace pioneer{
 
       ros::Duration(1).sleep();
 
-      ROS_INFO("Odometry topic set to: %s", pioneer::odometry_topic.c_str());
+      ROS_INFO("Odometry topic set to: %s", pioneer_tools::odometry_topic.c_str());
       ROS_INFO("Param offset_x set to: %f", offset_x_);
       ROS_INFO("Param offset_y set to: %f", offset_y_);
       ROS_INFO("Param offset_z set to: %f", offset_z_);
-      odometry_subscriber_ = n_.subscribe<nav_msgs::Odometry>(pioneer::odometry_topic, queue_size_, &OdometryFramePublisher::odometryCallback, this);
+      odometry_subscriber_ = n_.subscribe<nav_msgs::Odometry>(pioneer_tools::odometry_topic, queue_size_, &OdometryFramePublisher::odometryCallback, this);
 
       ros::spin();
 

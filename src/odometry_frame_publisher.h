@@ -52,7 +52,7 @@
 #include "nav_msgs/Odometry.h"
 #include <tf/transform_broadcaster.h>
 
-namespace pioneer{
+namespace pioneer_tools{
   class OdometryFramePublisher
   {
   private:

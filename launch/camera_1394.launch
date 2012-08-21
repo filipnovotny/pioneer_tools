@@ -1,7 +1,7 @@
 <launch>
 
   <node machine="pioneer" pkg="camera1394" type="camera1394_node" name="my_camera1394_node" args="_video_mode:=640x480_rgb8" >  	
-    <param name="camera_info_url" value="package://joystick_teleop/launch/config/calibration.ini" type="string" />
+    <param name="camera_info_url" value="package://pioneer_tools/launch/config/calibration.ini" type="string" />
     <param name="frame_id" value="/world" type="string" />
   </node>
 

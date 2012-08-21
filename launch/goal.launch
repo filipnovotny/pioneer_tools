@@ -1,12 +1,12 @@
 <launch>
   
   <node machine="master" pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen" ns="RosAria">
-    <rosparam file="$(find joystick_teleop)/launch/config/common_costmap.yaml" command="load" ns="global_costmap" />
-    <rosparam file="$(find joystick_teleop)/launch/config/common_costmap.yaml" command="load" ns="local_costmap" />
+    <rosparam file="$(find pioneer_tools)/launch/config/common_costmap.yaml" command="load" ns="global_costmap" />
+    <rosparam file="$(find pioneer_tools)/launch/config/common_costmap.yaml" command="load" ns="local_costmap" />
 
-    <rosparam file="$(find joystick_teleop)/launch/config/local_costmap.yaml" command="load" />
-    <rosparam file="$(find joystick_teleop)/launch/config/global_costmap.yaml" command="load" />
-    <rosparam file="$(find joystick_teleop)/launch/config/base_local_planner.yaml" command="load" />
+    <rosparam file="$(find pioneer_tools)/launch/config/local_costmap.yaml" command="load" />
+    <rosparam file="$(find pioneer_tools)/launch/config/global_costmap.yaml" command="load" />
+    <rosparam file="$(find pioneer_tools)/launch/config/base_local_planner.yaml" command="load" />
     <remap from="odom" to="/RosAria/pose" />
     
   </node>

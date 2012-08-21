@@ -52,7 +52,7 @@
 # include <string>
 
 // define topic and service names for the visp_hand2eye_calibration package.
-namespace pioneer
+namespace pioneer_tools
 {
   extern std::string joy_topic;
   extern std::string velocity_topic;
