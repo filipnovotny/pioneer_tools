@@ -58,7 +58,6 @@ namespace pioneer_tools
 {
 Teleop::Teleop(int argc, char**argv) :
             n_("~"),
-            spinner(0),
             linear_(1),
             angular_(2),
             cancel_(1),
