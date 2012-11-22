@@ -60,8 +60,7 @@ class Teleop
 {
 private:
   ros::NodeHandle n_;
-  ros::AsyncSpinner spinner;
-
+  
   int linear_, angular_, cancel_;
   double l_scale_, a_scale_;
 
