@@ -91,8 +91,8 @@ namespace pioneer_tools{
     transform.setRotation(
         tf::Quaternion(
             odometry->pose.pose.orientation.x,
-            odometry->pose.pose.orientation.z,
             odometry->pose.pose.orientation.y,
+            odometry->pose.pose.orientation.z,
             odometry->pose.pose.orientation.w
         )
     );
